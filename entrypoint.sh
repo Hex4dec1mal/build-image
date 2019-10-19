@@ -4,20 +4,21 @@ set -e
 
 export IMAGE="${1}/${6}:${7}"
 
-if [ -z "$9" ]; then
-    docker build $4 -f $5 -t "${IMAGE}"
+if [ -z "${9}" ]; then
+    sh -c "docker build ${4} -f ${5} -t ${IMAGE}" || exit 1
 else
-    docker build $4 -f $5 -t "${IMAGE}" --target "$9"
+    sh -c "docker build ${4} -f ${5} -t ${IMAGE} --target ${9}" || exit 1
 fi
 
-echo $3 | docker login "${1}" -u "${2}" --password-stdin
+echo $3 | sh -c "docker login ${1} -u ${2} --password-stdin"
 
-push-image "${IMAGE}"
+sh -c "push-image ${IMAGE}" || exit 2
 
-if [ ! -z "$8" ]; then
+if [ ! -z "${8}" ]; then
     export LATEST="${1}/${6}:${8}"
-    docker tag "${IMAGE}" "${LATEST}"
-    push-image "${LATEST}"
+
+    sh -c "docker tag ${IMAGE} ${LATEST}"
+    sh -c "push-image ${LATEST}" || exit 3
 fi
 
-docker logout "${1}"
+sh -c "docker logout ${1}"

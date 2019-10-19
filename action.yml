@@ -7,7 +7,7 @@ branding:
 inputs:
   registry:
     description: "Container registry"
-    default: "index.docker.io"
+    default: "docker.io"
   username:
     description: "Registry username"
     required: true
