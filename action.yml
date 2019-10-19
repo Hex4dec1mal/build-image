@@ -1,5 +1,5 @@
-name: "Build and publish Docker image"
-description: "Get started with Container actions"
+name: "Build Docker image"
+description: "Automation tool for publishing Docker images"
 author: "4ops"
 branding:
   icon: "box"
